@@ -11,17 +11,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import java.lang.Math;
 
 public class BouncingBallGame extends Application
 {
+    private final double radius = 30;
     @Override
     public void start(Stage stage)
     {
         Pane canvas = new Pane();
         Scene scene = new Scene(canvas, 900, 900, Color.TRANSPARENT);
-        Circle ball = new Circle(30, Color.DARKSLATEBLUE);
+        Circle ball = new Circle(radius, Color.DARKSLATEBLUE);
         ball.relocate(0,0);
 
         canvas.getChildren().add(ball);
@@ -42,15 +43,25 @@ public class BouncingBallGame extends Application
 
         scene.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> //Mouse click ends program.
         {
-            Platform.exit();
-            System.exit(0);
+            System.out.println(mouseEvent.getSceneX());
+            System.out.println(mouseEvent.getSceneY());
+            double xP = mouseEvent.getSceneX();
+            double yP = mouseEvent.getSceneY();
+            double xC = ball.getLayoutX();
+            double yC = ball.getLayoutY();
+            double distance = Math.sqrt((Math.pow((xP - xC), 2 ) + Math.pow((yP - yC), 2)));
+            if (distance < radius)
+            {
+                Platform.exit();
+                System.exit(0);
+            }
         });
 
         stage.setTitle("Bouncing Ball Game");
         stage.setScene(scene);
         stage.show();
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5),
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(15),
                 new EventHandler<>()
                 {
                     double dx = 7; //Sets step on x (or velocity).
