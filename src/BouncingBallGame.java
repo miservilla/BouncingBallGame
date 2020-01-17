@@ -16,7 +16,7 @@ import java.lang.Math;
 
 public class BouncingBallGame extends Application
 {
-    private final double radius = 30;
+    private final double radius = 100;
     @Override
     public void start(Stage stage)
     {
@@ -43,8 +43,7 @@ public class BouncingBallGame extends Application
 
         scene.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> //Mouse click ends program.
         {
-            System.out.println(mouseEvent.getSceneX());
-            System.out.println(mouseEvent.getSceneY());
+            System.out.println("xP: " + mouseEvent.getSceneX() + "  xY: " + mouseEvent.getSceneY() + ", you missed!");
             double xP = mouseEvent.getSceneX();
             double yP = mouseEvent.getSceneY();
             double xC = ball.getLayoutX();
@@ -52,6 +51,8 @@ public class BouncingBallGame extends Application
             double distance = Math.sqrt((Math.pow((xP - xC), 2 ) + Math.pow((yP - yC), 2)));
             if (distance < radius)
             {
+                System.out.println("Congratulations, you have clicked within the ball radius with a distance from" +
+                                " center of " + distance + " units!");
                 Platform.exit();
                 System.exit(0);
             }
