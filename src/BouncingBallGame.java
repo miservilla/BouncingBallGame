@@ -54,7 +54,7 @@ public class BouncingBallGame extends Application
                 System.out.println("Congratulations, you have clicked within the ball radius with a distance from" +
                                 " center of " + distance + " units!");
                 Platform.exit();
-                System.exit(0);
+                System.exit(0); //System exit.
             }
         });
 
